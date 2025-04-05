@@ -1,0 +1,40 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Skill Tree</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🌳 Interactive Skill Tree 🌳</h1>
+
+  <div id="controls">
+    <button id="theme-toggle">🌙 Dark Mode</button>
+    <button id="reset-btn">Reset Progress</button>
+  </div>
+
+  <div id="canvas-container">
+    <svg id="tree" viewBox="0 0 900 600"></svg>
+    <div id="tooltip"></div>
+  </div>
+
+  <div id="progress"></div>
+
+  <!-- Book logging input group -->
+  <div id="input-group">
+    <input type="text" id="book-input" placeholder="Enter a book you've read..." autocomplete="off">
+    <input type="number" id="reading-time" placeholder="Minutes read" min="1" max="300">
+    <button id="log-book-btn">Log Book</button>
+  </div>
+  
+  <div id="logged-books" style="display: none;">
+    <h3>Your Reading Log</h3>
+    <div class="book-list" id="book-list"></div>
+  </div>
+  
+
+  <script src="app.js"></script>
+</body>
+</html>
