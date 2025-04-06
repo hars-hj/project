@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome | SkillBloom</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Quicksand", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1e1e2f, #2c2c4e);
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      /* Initial Loading Animation */
+      .initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #1e1e2f, #2c2c4e);
+        z-index: 1000;
+        animation: fadeOut 0.5s ease-out 2.5s forwards;
+      }
+
+      .loader-text {
+        font-size: 40px;
+        font-weight: 700;
+        color: #90caf9;
+        animation: scaleAndFade 2s ease-out forwards;
+      }
+
+      @keyframes scaleAndFade {
+        0% {
+          transform: scale(1);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.5);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      /* Header Animation */
+      header {
+        width: 100%;
+        padding: 24px 40px;
+        background: #2d2d3d;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        animation: slideDown 0.8s ease-out 2.8s both;
+        opacity: 0;
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .logo {
+        font-size: 26px;
+        font-weight: 700;
+        color: #90caf9;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo img {
+        width: 36px;
+        height: 36px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #bbdefb;
+        font-weight: 500;
+        font-size: 16px;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #ffffff;
+      }
+
+      .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        padding: 40px;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 3.2s forwards;
+      }
+
+      .intro-card {
+        display: flex;
+        width: 700px;
+        border-radius: 15px;
+        overflow: hidden;
+        background: #2a2a3a;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transform: scale(0.8);
+        opacity: 0;
+        animation: unfoldCard 1s ease-out 3.4s forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes unfoldCard {
+        from {
+          transform: scale(0.8) translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .left-panel,
+      .right-panel {
+        padding: 35px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .left-panel {
+        flex: 0.6;
+        background: rgba(40, 40, 60, 0.95);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        opacity: 0;
+        transform: translateX(-50px);
+        animation: slideInLeft 0.8s ease-out 4s forwards;
+      }
+
+      .right-panel {
+        flex: 0.4;
+        background: linear-gradient(135deg, #ff6ec4, #7873f5);
+        color: #ffffff;
+        text-align: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateX(50px);
+        animation: slideInRight 0.8s ease-out 4s forwards;
+      }
+
+      .right-panel h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .right-panel p {
+        font-size: 15px;
+        opacity: 0.9;
+      }
+
+      .left-panel h1 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: #90caf9;
+      }
+
+      .left-panel p {
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        color: #bbdefb;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(to right, #64b5f6, #9575cd);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.4s ease;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .btn:hover {
+        background: linear-gradient(to right, #42a5f5, #7e57c2);
+      }
+
+      @keyframes slideInLeft {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Footer */
+      footer {
+        background: #2a2a3a;
+        padding: 15px 40px;
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 0.8s ease-out 5s forwards;
+      }
+
+      footer p {
+        color: #bbdefb;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="initial-loader">
+      <div class="loader-text">SkillBloom</div>
+    </div>
+    <header>
+      <div class="logo">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/6195/6195700.png"
+          alt="SkillBloom Logo"
+        />
+        SkillBloom
+      </div>
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">Features</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <div class="intro-card">
+        <div class="left-panel">
+          <h1>Bloom Your Potential</h1>
+          <p>Develop essential skills with personalized learning paths and professional tracking tools.</p>
+          <a href="login.html" class="btn">Get Started</a>
+        </div>
+
+        <div class="right-panel">
+          <h2>Welcome to SkillBloom</h2>
+          <p>Grow your skills, nurture your passions, and track your progress like never before.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2023 SkillBloom. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

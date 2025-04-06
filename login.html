@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | SkillBloom</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Quicksand", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1e1e2f, #2c2c4e);
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      /* Initial Loading Animation */
+      .initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #1e1e2f, #2c2c4e);
+        z-index: 1000;
+        animation: fadeOut 0.5s ease-out 2.5s forwards;
+      }
+
+      .loader-text {
+        font-size: 40px;
+        font-weight: 700;
+        color: #90caf9;
+        animation: scaleAndFade 2s ease-out forwards;
+      }
+
+      @keyframes scaleAndFade {
+        0% {
+          transform: scale(1);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.5);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      /* Header Animation */
+      header {
+        width: 100%;
+        padding: 24px 40px;
+        background: #2d2d3d;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        animation: slideDown 0.8s ease-out 2.8s both;
+        opacity: 0;
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .logo {
+        font-size: 26px;
+        font-weight: 700;
+        color: #90caf9;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo img {
+        width: 36px;
+        height: 36px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #bbdefb;
+        font-weight: 500;
+        font-size: 16px;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #ffffff;
+      }
+
+      .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        padding: 40px;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 3.2s forwards;
+      }
+
+      .login-card {
+        display: flex;
+        width: 820px;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #2a2a3a;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transform: scale(0.8);
+        opacity: 0;
+        animation: unfoldCard 1s ease-out 3.4s forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes unfoldCard {
+        from {
+          transform: scale(0.8) translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .left-panel,
+      .right-panel {
+        flex: 1;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .left-panel {
+        background: rgba(40, 40, 60, 0.95);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        opacity: 0;
+        transform: translateX(-50px);
+        animation: slideInLeft 0.8s ease-out 4s forwards;
+      }
+
+      .right-panel {
+        background: linear-gradient(135deg, #ff6ec4, #7873f5);
+        color: #ffffff;
+        text-align: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateX(50px);
+        animation: slideInRight 0.8s ease-out 4s forwards;
+      }
+
+      .right-panel h2 {
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+
+      .right-panel p {
+        font-size: 16px;
+        opacity: 0.9;
+      }
+
+      .left-panel h2 {
+        font-size: 26px;
+        margin-bottom: 20px;
+        color: #90caf9;
+      }
+
+      .input-field {
+        margin-bottom: 16px;
+      }
+
+      .input-field input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #555;
+        background: #1c1c2b;
+        color: #eee;
+        font-size: 14px;
+        transition: border 0.3s;
+      }
+
+      .input-field input:focus {
+        border-color: #64b5f6;
+        outline: none;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(to right, #64b5f6, #9575cd);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.4s ease;
+      }
+
+      .btn:hover {
+        background: linear-gradient(to right, #42a5f5, #7e57c2);
+      }
+
+      .toggle {
+        margin-top: 14px;
+        font-size: 13px;
+        color: #bbb;
+        text-align: center;
+      }
+
+      .toggle a {
+        color: #90caf9;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      @keyframes slideInLeft {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
+    <head>
+     
+      <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      </script>
+  </head>
+  </head>
+  <body>
+    <div class="initial-loader">
+      <div class="loader-text">SkillBloom</div>
+    </div>
+    <header>
+      <div class="logo">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/6195/6195700.png"
+          alt="SkillBloom Logo"
+        />
+        SkillBloom
+      </div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Help</a>
+        <a href="#">Contact</a>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <div class="login-card">
+        <div class="left-panel">
+          <!-- LOGIN FORM -->
+          <div id="login-form">
+            <h2>Log In</h2>
+            <div class="input-field">
+              <input
+                type="email"
+                id="login-email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="input-field">
+              <input
+                type="password"
+                id="login-password"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <button class="btn" onclick="handleLogin()">Log In</button>
+            <div class="toggle">
+              Don’t have an account?
+              <a href="#" onclick="switchToSignup()">Sign Up</a>
+            </div>
+          </div>
+
+          <!-- SIGNUP FORM -->
+          <div id="signup-form" style="display: none">
+            <h2>Sign Up</h2>
+            <div class="input-field">
+              <input
+                type="text"
+                id="signup-name"
+                placeholder="Name"
+                required
+              />
+            </div>
+            <div class="input-field">
+              <input
+                type="email"
+                id="signup-email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="input-field">
+              <input
+                type="text"
+                id="signup-username"
+                placeholder="Username"
+                required
+              />
+            </div>
+            <div class="input-field">
+              <input
+                type="password"
+                id="signup-password"
+                placeholder="Create Password"
+                required
+              />
+            </div>
+            <div class="input-field">
+              <input
+                type="password"
+                id="signup-confirm"
+                placeholder="Confirm Password"
+                required
+              />
+            </div>
+            <button class="btn" onclick="handleSignup()">Sign Up</button>
+            <div class="toggle">
+              Already have an account?
+              <a href="#" onclick="switchToLogin()">Log In</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-panel">
+          <h2>Welcome to SkillBloom</h2>
+          <p>
+            Grow your skills, nurture your passions, and track your progress
+            like never before.
+          </p>
+        </div>
+      </div>
+    </div>
+
+        <!-- Replace everything between these script tags -->
+        <script type="module">
+          // Import Firebase functions
+         // Update the imports at the top of your script
+               import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+               import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+              import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+          // Your existing Firebase config
+          const firebaseConfig = {
+            apiKey: "AIzaSyDZDr86QB7cetJsRiHUZxhJdxroYy_nZK0",
+  authDomain: "hackathon-c1d2f.firebaseapp.com",
+  databaseURL: "https://hackathon-c1d2f-default-rtdb.firebaseio.com",
+  projectId: "hackathon-c1d2f",
+  storageBucket: "hackathon-c1d2f.firebasestorage.app",
+  messagingSenderId: "460212246568",
+  appId: "1:460212246568:web:ef2388fab95cf962087d1d",
+  measurementId: "G-LQVYXCVC38"
+          };
+    
+          // Initialize Firebase
+          const app = initializeApp(firebaseConfig);
+          const auth = getAuth(app);
+    
+          // Make functions available to window object
+          window.handleLogin = async function() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Store login state
+        localStorage.setItem('user', JSON.stringify({
+            uid: user.uid,
+            email: user.email
+        }));
+        
+        alert("Login successful!");
+        window.location.href = "temp2.html";
+    } catch (error) {
+        alert("Error: " + error.message);
+    }
+}
+    
+          window.handleSignup = async function() {
+    const name = document.getElementById("signup-name").value;
+    const email = document.getElementById("signup-email").value;
+    const username = document.getElementById("signup-username").value;
+    const password = document.getElementById("signup-password").value;
+    const confirm = document.getElementById("signup-confirm").value;
+
+    if (password !== confirm) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    try {
+        // Create authentication user
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Initialize database
+        const db = getDatabase();
+        
+        // Store user data
+        await set(ref(db, 'users/' + user.uid), {
+            name: name,
+            email: email,
+            username: username,
+            progress: {
+                Literature: { level: 0, progress: 0 },
+                Academics: { level: 0, progress: 0 },
+                Music: { level: 0, progress: 0 },
+                Wellness: { level: 0, progress: 0 },
+                Skills: { level: 0, progress: 0 }
+            },
+            createdAt: Date.now()
+        });
+
+        alert("Account created successfully!");
+        window.location.href = "temp2.html";
+    } catch (error) {
+        alert("Error: " + error.message);
+    }
+}
+    
+          window.switchToSignup = function() {
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("signup-form").style.display = "block";
+          }
+    
+          window.switchToLogin = function() {
+            document.getElementById("signup-form").style.display = "none";
+            document.getElementById("login-form").style.display = "block";
+          }
+    
+          auth.onAuthStateChanged((user) => {
+  const isLoginPage = window.location.pathname.toLowerCase().endsWith('login.html');
+  
+  // if (user && isLoginPage) {
+  //   // If user is signed in and on login page, redirect to dashboard
+  //   window.location.href = "login.html";
+  // } else if (!user && !isLoginPage) {
+  //   // If user is not signed in and trying to access other pages, redirect to login
+  //   window.location.href = "login.html";
+  // }
+  // Do nothing if user is on login page and not signed in
+});
+        </script>
+  </body>
+</html>
